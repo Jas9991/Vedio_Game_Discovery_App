@@ -1,6 +1,7 @@
 // import { useEffect, useState } from "react";
 // import apiClient from "../services/api-client";
 // import { Genre } from "./useGenres";
+import { GameQuery } from "../App";
 import useData from "./useData";
 import { Genre } from "./useGenres";
 
@@ -23,19 +24,20 @@ export interface Game {
 //   results: Game[];
 // }
 
-const useGames = (
-  selectedGenre: Genre | null,
-  selectedPlatform: Platform | null
-) =>
+// selectedGenre: Genre | null,
+// selectedPlatform: Platform | null
+
+const useGames = (gameQuery: GameQuery) =>
   useData<Game>(
     "/games",
     {
       params: {
-        genres: selectedGenre?.id,
-        parent_platforms: selectedPlatform?.id,
+        genres: gameQuery.genre?.id,
+        parent_platforms: gameQuery.platform?.id,
       },
     },
-    [selectedGenre?.id, selectedPlatform?.id]
+    [gameQuery]
+    //selectedGenre?.id, selectedPlatform?.id
   );
 
 //{
